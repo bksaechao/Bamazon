@@ -29,3 +29,5 @@
   * for loops
   * promise objects
   * .then
+  * .prompt
+  * .connect

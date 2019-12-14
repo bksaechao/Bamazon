@@ -14,7 +14,10 @@ const connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: "root",
-    password: "N3wp@55word1424",
+    // I need to update my mysql password to something less private
+    // You will need to provide the password you created in mysql
+    // root or no password is standard practice for development
+    password: "YOUR OWN PASSWORD",
     database: "bamazon_db"
 });
 
