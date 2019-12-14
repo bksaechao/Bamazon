@@ -6,7 +6,7 @@ const Table = require("cli-table")
 // Initiating table with parameters
 var table = new Table({
     head: ['id', 'Name', 'Company', 'Price', 'Stock'],
-    colWidths: [5, 20, 20, 20, 20]
+    colWidths: [5, 25, 25, 9, 9]
 });
 
 // Creates a connection to the mysql database
@@ -34,7 +34,7 @@ function queryAllproducts() {
                 [res[i].item_id, res[i].product_name, res[i].department_name, res[i].price, res[i].stock_quantity]
             );
         };
-        console.log('=====================================Bamazon Products======================================')
+        console.log('===============================Bamazon Products===============================')
         console.log(table.toString());
         shopAllproducts();
     });
