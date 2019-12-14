@@ -34,7 +34,7 @@ function queryAllproducts() {
                 [res[i].item_id, res[i].product_name, res[i].department_name, res[i].price, res[i].stock_quantity]
             );
         };
-        console.log('\n=====================================Bamazon Products======================================')
+        console.log('=====================================Bamazon Products======================================')
         console.log(table.toString());
         shopAllproducts();
     });
@@ -97,5 +97,4 @@ function promptNewPurchase() {
             console.log("\nThank you for shopping with us! :D")
         }
     })
-    connection.end();
 }
