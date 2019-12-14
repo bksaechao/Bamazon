@@ -25,7 +25,7 @@ connection.connect(err => {
     queryAllproducts();
 });
 
-// Display the products to the terminal and initiates the inquirer purchase process
+// Display the products to the terminal and runs the function to start the shopping process.
 function queryAllproducts() {
     connection.query("SELECT * FROM products", (err, res) => {
         if (err) throw err;
@@ -40,7 +40,8 @@ function queryAllproducts() {
     });
 }
 
-// Asks & finds queried product then runs the purchase function
+// Asks user which product & quantity would like to be purchased.
+// Stores data in variables and runs the purchase function.
 function shopAllproducts() {
     inquirer
         .prompt([
@@ -66,7 +67,7 @@ function shopAllproducts() {
 }
 
 // Checks if product is in stock and updates database if purchase is made.
-// Checks if another product would like to be purchased.
+// Runs the new purchase function.
 function purchaseProduct(productId, reqQuantity) {
     connection.query("SELECT * FROM products WHERE item_id = " + productId, (err, res) => {
         if (err) throw err;
@@ -77,7 +78,7 @@ function purchaseProduct(productId, reqQuantity) {
 
             connection.query("UPDATE products SET stock_quantity = stock_quantity - " + reqQuantity + " WHERE item_id = " + productId);
         } else {
-            console.log("Sorry, " + res[0].product_name + " is currently out of stock T_T.");
+            console.log("Sorry, we do not have enough " + res[0].product_name + " in stock to process your order T_T.");
         };
         promptNewPurchase();
     });
