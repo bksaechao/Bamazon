@@ -29,8 +29,8 @@ PRIMARY KEY
         ("Senzu Bean", "Korin Tower", 800000, 100),
         ("Magic Carpet", "Agrabah", 999999, 1),
         ("Ramen", "Ichiraku", 10, 100000),
-        ("A5 Wagyu Whole Cow", "Crowd Cow", 500, 30000),
-        ("Potion", "Item Mart", 99, 15),
-        ("Tequila", "Reposado", 5000, 25),
-        ("Tuna", "Maguro", 100, 6);
+        ("A5 Wagyu Whole Cow", "Crowd Cow", 30000, 500),
+        ("Potion", "Item Mart", 15, 99),
+        ("Tequila", "Reposado", 25, 5000),
+        ("Tuna", "Maguro", 6, 100);
 

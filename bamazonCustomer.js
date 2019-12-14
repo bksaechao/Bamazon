@@ -9,7 +9,7 @@ var table = new Table({
     colWidths: [5, 20, 20, 20, 20]
 });
 
-// Connecting to the mysql database
+// Creates a connection to the mysql database
 const connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
@@ -18,12 +18,14 @@ const connection = mysql.createConnection({
     database: "bamazon_db"
 });
 
+// Connects to the database and starts the purchase process
 connection.connect(err => {
     if (err) throw err;
     console.log("connected as id " + connection.threadId);
     queryAllproducts();
 });
 
+// Display the products to the terminal and initiates the inquirer purchase process
 function queryAllproducts() {
     connection.query("SELECT * FROM products", (err, res) => {
         if (err) throw err;
@@ -38,6 +40,7 @@ function queryAllproducts() {
     });
 }
 
+// Asks & finds queried product then runs the purchase function
 function shopAllproducts() {
     inquirer
         .prompt([
@@ -62,18 +65,37 @@ function shopAllproducts() {
         });
 }
 
+// Checks if product is in stock and updates database if purchase is made.
+// Checks if another product would like to be purchased.
 function purchaseProduct(productId, reqQuantity) {
     connection.query("SELECT * FROM products WHERE item_id = " + productId, (err, res) => {
         if (err) throw err;
         if (reqQuantity <= res[0].stock_quantity) {
             var cost = res[0].price * reqQuantity;
             console.log("Order in stock!")
-            console.log("Your total cost for " + reqQuantity + " " + res[0].product_name + " is " + "$" + cost + "." + "\nThank you for your purchase!");
+            console.log("Your total cost for " + reqQuantity + " " + res[0].product_name + " is " + "$" + cost + "." + "\nThank you for your purchase!")
 
-            connection.query("UPDATE products SET stock_quantity = stock_quantity - " + reqQuantity + "where item_id = " + productId);
+            connection.query("UPDATE products SET stock_quantity = stock_quantity - " + reqQuantity + " WHERE item_id = " + productId);
         } else {
             console.log("Sorry, " + res[0].product_name + " is currently out of stock T_T.");
         };
+        promptNewPurchase();
     });
-    queryAllproducts();
 };
+
+// Asks if user would like to make another purchase.
+// If yes, the initial function is re-ran
+function promptNewPurchase() {
+    inquirer.prompt({
+        name: "newPurchase",
+        type: "confirm",
+        message: "Would you like to make another purchase?"
+    }).then((ans) => {
+        if (ans.newPurchase) {
+            queryAllproducts();
+        } else {
+            console.log("\nThank you for shopping with us! :D")
+        }
+    })
+    connection.end();
+}
