@@ -1,13 +1,15 @@
+// Required Packages
 const mysql = require("mysql");
 const inquirer = require("inquirer");
 const Table = require("cli-table")
 
-// instantiate
+// Initiating table with parameters
 var table = new Table({
     head: ['id', 'Name', 'Company', 'Price', 'Stock'],
     colWidths: [5, 20, 20, 20, 20]
 });
 
+// Connecting to the mysql database
 const connection = mysql.createConnection({
     host: "localhost",
 
@@ -23,6 +25,7 @@ connection.connect(err => {
     if (err) throw err;
     console.log("connected as id " + connection.threadId);
     queryAllproducts();
+    purchaseProducts();
 });
 
 function queryAllproducts() {
@@ -33,8 +36,31 @@ function queryAllproducts() {
                 [res[i].item_id, res[i].product_name, res[i].department_name, res[i].price, res[i].stock_quantity]
             );
         };
-        console.log('=====================================Bamazon Products======================================')
+        console.log('\n=====================================Bamazon Products======================================')
         console.log(table.toString());
-        connection.end();
+        shopAllproducts();
     });
+}
+
+function shopAllproducts() {
+    inquirer
+        .prompt([
+            // Picking product
+            {
+                type: "input",
+                message: "What would you like to buy? (id#)",
+                name: "id#",
+                filter: Number
+            },
+            // Product amount
+            {
+                type: "input",
+                message: "How much would you like to buy?",
+                name: "Quantity",
+                filter: Number
+            }
+        ]).then(answer => {
+
+        })
+    connection.end();
 }
