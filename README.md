@@ -17,6 +17,11 @@
 
 <img src="images/bamazon-purchase.gif" alt="purchaseGif" height="200" width="400">
 
+# Requirements
+<p>The GIF below demonstrates the full functionality of the application. The first process will show that the app properly updates the database and the table when it is repopulated. The second process shows that the app will prevent users from making a purchase if an item is out of or exceeds the stock.</p>
+
+<img src="images/bamazon-extra.gif" alt="reqGif" height="200" width="400">
+
 # Technologies
 * node.js
 * packages:
